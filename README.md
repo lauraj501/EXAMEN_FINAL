@@ -1,1 +1,1 @@
-# EXAMEN_FINAL
+requerimiento 6: reporte basico de habilidades
