@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Agente extends Entidad {
     private String habilidadEspecial;
@@ -52,11 +53,49 @@ public class Agente extends Entidad {
                 (misionAsignada != null ? ", Misión: " + misionAsignada : "");
     }
     public static void main(String[] args) {
-        Agente agente = new Agente(1915, "Albert", "Velocidad");
-        agente.asignarMision("Misión 1");
-        agente.completarMision("Misión 1");
-        agente.neutralizarAnomalia("Anomalía A");
-        agente.generarReporte();
+        Scanner scanner = new Scanner(System.in);
+        List<Agente> agentes = new ArrayList<>(); // Lista para almacenar agentes
 
+        System.out.print("Ingrese el número de agentes a registrar: ");
+        int numeroAgentes = scanner.nextInt();
+        scanner.nextLine(); // Limpiar el buffer
+
+        for (int i = 0; i < numeroAgentes; i++) {
+            System.out.print("Ingrese el ID del agente: ");
+            int id = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el buffer
+
+            System.out.print("Ingrese el nombre del agente: ");
+            String nombre = scanner.nextLine();
+
+            System.out.print("Ingrese la habilidad especial del agente: ");
+            String habilidadEspecial = scanner.nextLine();
+
+            Agente agente = new Agente(id, nombre, habilidadEspecial);
+
+            System.out.print("Ingrese la misión asignada: ");
+            String mision = scanner.nextLine();
+            agente.asignarMision(mision);
+
+            System.out.print("¿Completó la misión? (sí/no): ");
+            String completado = scanner.nextLine();
+            if (completado.equalsIgnoreCase("sí")) {
+                agente.completarMision(mision);
+            }
+
+            System.out.print("Ingrese una anomalía neutralizada: ");
+            String anomalia = scanner.nextLine();
+            agente.neutralizarAnomalia(anomalia);
+
+            agentes.add(agente); // Agregar agente a la lista
+        }
+
+        // Generar y mostrar el reporte de todos los agentes
+        for (Agente agente : agentes) {
+            agente.generarReporte();
+            System.out.println(); // Para separar los reportes de cada agente
+        }
+
+        scanner.close(); // Cerrar el scanner
     }
 }
